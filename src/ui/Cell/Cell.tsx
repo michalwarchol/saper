@@ -4,9 +4,10 @@ import styles from './Cell.module.scss';
 
 type CellProps = TCell & {
   onToggleFlag: () => void;
+  onRevealCell: () => void;
 }
 
-const Cell: React.FC<CellProps> = ({ adjacent, flagged, mine, revealed, onToggleFlag}: CellProps) => {
+const Cell: React.FC<CellProps> = ({ adjacent, flagged, mine, revealed, onToggleFlag, onRevealCell }: CellProps) => {
   return (
     <div
       className={styles.cell}
@@ -14,6 +15,7 @@ const Cell: React.FC<CellProps> = ({ adjacent, flagged, mine, revealed, onToggle
         e.preventDefault();
         onToggleFlag();
       }}
+      onClick={() => onRevealCell()}
     >
       {revealed && (<div className={styles.revealed}>
         {adjacent > 0 && (<span className={`${styles.adjacent} ${styles['color-' + adjacent]}`}>{adjacent}</span>)}

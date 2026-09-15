@@ -4,7 +4,7 @@ import Cell from '../Cell';
 
 import styles from './Board.module.scss';
 
-const createBoardUI = (board: TBoard, onToggleFlag: (index: number) => void) => {
+const createBoardUI = (board: TBoard, onToggleFlag: (index: number) => void, onRevealCell: (index: number) => void) => {
   const rows = []
   for (let y = 0; y < board.height; y++) {
     const row = [];
@@ -17,6 +17,7 @@ const createBoardUI = (board: TBoard, onToggleFlag: (index: number) => void) => 
         flagged={board.cells[index].flagged}
         adjacent={board.cells[index].adjacent}
         onToggleFlag={() =>onToggleFlag(index)}
+        onRevealCell={() => onRevealCell(index)}
       />);
     }
     rows.push(<div key={y} className={styles.row}>{row}</div>);
@@ -28,12 +29,13 @@ const createBoardUI = (board: TBoard, onToggleFlag: (index: number) => void) => 
 interface BoardProps {
   board: TBoard;
   onToggleFlag: (index: number) => void;
+  onRevealCell: (index: number) => void;
 }
 
-const Board = ({ board, onToggleFlag }: BoardProps) => {
+const Board = ({ board, onToggleFlag, onRevealCell }: BoardProps) => {
   return (
     <div className={styles.board}>
-      {createBoardUI(board, onToggleFlag)}
+      {createBoardUI(board, onToggleFlag, onRevealCell)}
     </div>
   );
 }

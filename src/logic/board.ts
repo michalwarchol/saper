@@ -54,8 +54,59 @@ export function createBoard(level: Level): Board {
     state: 'idle',
   }
 }
+
 export function revealCell(board: Board, index: number): Board {
-  return board;
+  if (board.state === 'lost' || board.state === 'won') return board;
+
+  const newBoard = structuredClone(board);
+  if (board.state === 'idle') {
+    newBoard.state = 'playing';
+  }
+
+  const revealedCell = board.cells[index];
+  if (!revealedCell.revealed && revealedCell.flagged) {
+    return newBoard;
+  }
+
+  if (!revealedCell.revealed && revealedCell.mine) {
+    newBoard.cells[index].revealed = true;
+    newBoard.state = 'lost';
+    return newBoard;
+  }
+
+  if (!revealedCell.revealed && revealedCell.adjacent > 0) {
+    newBoard.cells[index].revealed = true;
+    // TODO
+    // if (checkWin(newBoard)) {
+    //   newBoard.state = 'won';
+    // }
+    return newBoard;
+  }
+
+  if (!revealedCell.revealed && revealedCell.adjacent === 0) {
+    newBoard.cells[index].revealed = true;
+    // TODO:cascadeReveal(newBoard, index);
+
+    // TODO
+    // if (checkWin(newBoard)) {
+    //   newBoard.state = 'won';
+    // }
+
+    return newBoard;
+  }
+
+  if (revealedCell.revealed && revealedCell.adjacent > 0) {
+    // TODO: chording(newBoard, index);
+
+    // TODO
+    // if (checkWin(newBoard)) {
+    //   newBoard.state = 'won';
+    // }
+
+    return newBoard;
+  }
+
+  return newBoard;
 }
 
 export function toggleFlag(board: Board, index: number): Board {
