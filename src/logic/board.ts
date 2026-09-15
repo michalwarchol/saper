@@ -22,10 +22,35 @@ export type Board = {
 }
   
 export function createBoard(level: Level): Board {
+  const cells: Cell[] = [];
+  for (let y = 0; y < level.height; y++) {
+    for (let x = 0; x < level.width; x++) {
+      const isMine = level.mines.some(mine => mine[0] === x && mine[1] === y);
+      const adjecentMines = level.mines.filter((mine) => {
+        if (mine[0] === x && mine[1] === y - 1) return true;
+        if (mine[0] === x && mine[1] === y + 1) return true;
+        if (mine[0] === x - 1 && mine[1] === y) return true;
+        if (mine[0] === x + 1 && mine[1] === y) return true;
+        if (mine[0] === x - 1 && mine[1] === y - 1) return true;
+        if (mine[0] === x + 1 && mine[1] === y + 1) return true;
+        if (mine[0] === x - 1 && mine[1] === y + 1) return true;
+        if (mine[0] === x + 1 && mine[1] === y - 1) return true;
+          return false;
+        }).length;
+
+      cells.push({
+        mine: isMine,
+        revealed: false,
+        flagged: false,
+        adjacent: adjecentMines,
+      });
+    }
+  }
+
   return {
     width: level.width,
     height: level.height,
-    cells: [],
+    cells,
     state: 'idle',
   }
 }
