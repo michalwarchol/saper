@@ -2,13 +2,15 @@
   height: var(--cell-size);
   width: var(--cell-size);
   background-color: var(--background-secondary);
+  cursor: default;
 
   .revealed {
-    background-color: var(--background-primary);
+    background-color: var(--background-secondary);
     border-top: var(--border-size-primary) solid var(--background-secondary);
     border-left: var(--border-size-primary) solid var(--background-secondary);
     border-bottom: var(--border-size-primary) solid var(--background-secondary);
     border-right: var(--border-size-primary) solid var(--background-secondary);
+    box-sizing: border-box;
   }
 
   .unrevealed {
@@ -17,6 +19,7 @@
     border-left: var(--border-size-primary) solid var(--border-light);
     border-bottom: var(--border-size-primary) solid var(--border-dark);
     border-right: var(--border-size-primary) solid var(--border-dark);
+    box-sizing: border-box;
 
     height: 100%;
     width: 100%;
