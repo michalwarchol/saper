@@ -65,6 +65,8 @@ export function toggleFlag(board: Board, index: number): Board {
 
     const newBoard = structuredClone(board);
     newBoard.cells[index].flagged = !newBoard.cells[index].flagged;
-    newBoard.state = 'playing';
+    if (board.state === 'idle') {
+      newBoard.state = 'playing';
+    }
     return newBoard;
 }
