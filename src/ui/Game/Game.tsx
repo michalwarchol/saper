@@ -6,6 +6,7 @@ import Board from "../Board";
 import MenuUI from "../Menu";
 
 const Game = () => {
+  const [currentLevelId, setCurrentLevelId] = useState(plansze.levels[0].id);
   const [board, setBoard] = useState<TBoard>(createBoard(plansze.levels[0] as TLevel));
   const [remainedMines, setRemainedMines] = useState(plansze.levels[0].mineCount);
 
@@ -13,6 +14,7 @@ const Game = () => {
     const newLevel = plansze.levels.find((level) => level.id === id);
     setBoard(createBoard(newLevel as TLevel));
     setRemainedMines(newLevel!.mineCount!);
+    setCurrentLevelId(newLevel!.id!);
   }
 
   const onToggleFlag = (index: number) => {
@@ -22,6 +24,7 @@ const Game = () => {
   return (
     <div>
       <MenuUI
+        currentLevelId={currentLevelId}
         levels={plansze.levels.map((level) => ({ id: level.id, name: level.name}))}
         onSetLevel={onSetLevel}
       />

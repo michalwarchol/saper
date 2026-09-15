@@ -1,4 +1,5 @@
 interface MenuProps {
+  currentLevelId: string;
   levels: {
     id: string;
     name: string;
@@ -6,7 +7,7 @@ interface MenuProps {
   onSetLevel: (id: string) => void;
 }
 
-const Menu = ({ levels, onSetLevel }: MenuProps) => {
+const Menu = ({ currentLevelId, levels, onSetLevel }: MenuProps) => {
   return (
     <div>
       <h1>Menu</h1>
@@ -22,6 +23,14 @@ const Menu = ({ levels, onSetLevel }: MenuProps) => {
               {level.name}
           </button>
         ))}
+        <button
+          type="button"
+          onClick={() => {
+            onSetLevel(currentLevelId);
+          }}
+        >
+          Restart level
+        </button>
       </div>
     </div>
   );
