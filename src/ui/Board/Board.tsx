@@ -16,6 +16,7 @@ const createBoardUI = (board: TBoard, onToggleFlag: (index: number) => void, onR
         revealed={board.cells[index].revealed}
         flagged={board.cells[index].flagged}
         adjacent={board.cells[index].adjacent}
+        boardState={board.state}
         onToggleFlag={() =>onToggleFlag(index)}
         onRevealCell={() => onRevealCell(index)}
       />);
