@@ -4,60 +4,39 @@
   background-color: var(--background-secondary);
   cursor: default;
 
-  .revealed {
-    background-color: var(--background-secondary);
-    border-top: var(--border-size-primary) solid var(--background-secondary);
-    border-left: var(--border-size-primary) solid var(--background-secondary);
-    border-bottom: var(--border-size-primary) solid var(--background-secondary);
-    border-right: var(--border-size-primary) solid var(--background-secondary);
-    box-sizing: border-box;
-  }
-
-  .unrevealed {
-    background-color: var(--background-primary);
-    border-top: var(--border-size-primary) solid var(--border-light);
-    border-left: var(--border-size-primary) solid var(--border-light);
-    border-bottom: var(--border-size-primary) solid var(--border-dark);
-    border-right: var(--border-size-primary) solid var(--border-dark);
+  &__face {
+    border: var(--border-size-primary) solid;
     box-sizing: border-box;
 
-    height: 100%;
-    width: 100%;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    &--revealed {
+      background-color: var(--background-secondary);
+      border-color: var(--background-secondary);
+    }
+
+    &--unrevealed {
+      background-color: var(--background-primary);
+      border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+
+      height: 100%;
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
-  .flag, .mine {
+  &__icon {
     font-size: var(--font-size-adjacent);
   }
 
-  .adjacent {
+  &__adjacent {
     font-weight: bold;
-  }
-  .color-1 {
-    color: var(--color-1);
-  }
-  .color-2 {
-    color: var(--color-2);
-  }
-  .color-3 {
-    color: var(--color-3);
-  }
-  .color-4 {
-    color: var(--color-4);
-  }
-  .color-5 {
-    color: var(--color-5);
-  }
-  .color-6 {
-    color: var(--color-6);
-  }
-  .color-7 {
-    color: var(--color-7);
-  }
-  .color-8 {
-    color: var(--color-8);
+
+    @for $i from 1 through 8 {
+      &--#{$i} {
+        color: var(--color-#{$i});
+      }
+    }
   }
 }

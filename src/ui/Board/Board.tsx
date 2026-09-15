@@ -21,7 +21,7 @@ const createBoardUI = (board: TBoard, onToggleFlag: (index: number) => void, onR
         onRevealCell={() => onRevealCell(index)}
       />);
     }
-    rows.push(<div key={y} className={styles.row}>{row}</div>);
+    rows.push(<div key={y} className={styles['board__row']}>{row}</div>);
   }
 
   return rows;
