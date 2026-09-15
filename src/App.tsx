@@ -1,14 +1,7 @@
-import plansze from "../assets/saper-plansze.json"
-import { createBoard, type Level } from "./logic/board"
-
-import BoardUI from "./ui/Board"
+import Game from "./ui/Game";
 
 function App() {
-  return (
-    <div>
-      <BoardUI board={createBoard(plansze.levels[0] as Level)} />
-    </div>
-  )
+  return <Game />
 }
 
 export default App
