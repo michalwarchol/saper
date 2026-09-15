@@ -17,6 +17,9 @@
     border-left: var(--border-size-primary) solid var(--border-light);
     border-bottom: var(--border-size-primary) solid var(--border-dark);
     border-right: var(--border-size-primary) solid var(--border-dark);
+
+    height: 100%;
+    width: 100%;
   
     display: flex;
     justify-content: center;

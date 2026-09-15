@@ -18,6 +18,7 @@
   --cell-size: 30px;
   --border-size-primary: 2px;
   --font-size-adjacent: 16px;
+  --gap-size: 4px;
 
   font: 18px/145% var(--sans);
   color: var(--text);
