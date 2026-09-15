@@ -55,6 +55,46 @@ export function createBoard(level: Level): Board {
   }
 }
 
+function cascadeReveal(board: Board, index: number): void {
+  const indexesToCheck = [
+    index - board.width,
+    index + board.width,
+  ];
+
+  // left edge column
+  if (index % board.width !== 0) {
+    indexesToCheck.push(index - board.width - 1, index - 1, index + board.width - 1);
+  }
+  
+  // right edge column
+  if (index % board.width !== board.width - 1) {
+    indexesToCheck.push(index - board.width + 1, index + 1, index + board.width + 1);
+  }
+
+  indexesToCheck.forEach((indexToCheck) => {
+    if (!board.cells[indexToCheck]) {
+      return;
+    }
+
+    if (board.cells[indexToCheck].mine) {
+      return;
+    }
+
+    if (board.cells[indexToCheck].flagged) {
+      return;
+    }
+
+    if (!board.cells[indexToCheck].revealed && board.cells[indexToCheck].adjacent > 0) {
+      board.cells[indexToCheck].revealed = true;
+    }
+
+    if (!board.cells[indexToCheck].revealed && board.cells[indexToCheck].adjacent === 0) {
+      board.cells[indexToCheck].revealed = true;
+      cascadeReveal(board, indexToCheck);
+    }
+  });
+}
+
 export function revealCell(board: Board, index: number): Board {
   if (board.state === 'lost' || board.state === 'won') return board;
 
@@ -85,7 +125,7 @@ export function revealCell(board: Board, index: number): Board {
 
   if (!revealedCell.revealed && revealedCell.adjacent === 0) {
     newBoard.cells[index].revealed = true;
-    // TODO:cascadeReveal(newBoard, index);
+    cascadeReveal(newBoard, index);
 
     // TODO
     // if (checkWin(newBoard)) {
