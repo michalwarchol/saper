@@ -34,6 +34,8 @@ const Game = () => {
       />
       <div>Remained mines: {remainedMines}</div>
       <Board board={board} onToggleFlag={onToggleFlag} onRevealCell={onRevealCell} />
+      {board.state === 'won' && <div>You won!</div>}
+      {board.state === 'lost' && <div>You lost!</div>}
     </div>
   );
 }

@@ -20,6 +20,13 @@ export type Board = {
   cells: Cell[] // wiersz po wierszu; indeks pola = y * width + x
   state: 'idle' | 'playing' | 'won' | 'lost'
 }
+
+function checkWin(board: Board): boolean {
+  const allMines = board.cells.filter((cell) => cell.mine).length
+  const revealedCount = board.cells.filter((cell) => cell.revealed).length;
+
+  return board.width * board.height === revealedCount + allMines;
+}
   
 export function createBoard(level: Level): Board {
   const cells: Cell[] = [];
@@ -47,12 +54,18 @@ export function createBoard(level: Level): Board {
     }
   }
 
-  return {
+  const board = {
     width: level.width,
     height: level.height,
-    cells,
-    state: 'idle',
+    cells: cells,
+    state: 'idle' as 'idle' | 'playing' | 'won' | 'lost',
+  };
+
+  if (checkWin(board)) {
+    board.state = 'won';
   }
+
+  return board;
 }
 
 function cascadeReveal(board: Board, index: number): void {
@@ -116,10 +129,9 @@ export function revealCell(board: Board, index: number): Board {
 
   if (!revealedCell.revealed && revealedCell.adjacent > 0) {
     newBoard.cells[index].revealed = true;
-    // TODO
-    // if (checkWin(newBoard)) {
-    //   newBoard.state = 'won';
-    // }
+    if (checkWin(newBoard)) {
+      newBoard.state = 'won';
+    }
     return newBoard;
   }
 
@@ -127,10 +139,9 @@ export function revealCell(board: Board, index: number): Board {
     newBoard.cells[index].revealed = true;
     cascadeReveal(newBoard, index);
 
-    // TODO
-    // if (checkWin(newBoard)) {
-    //   newBoard.state = 'won';
-    // }
+    if (checkWin(newBoard)) {
+      newBoard.state = 'won';
+    }
 
     return newBoard;
   }
@@ -138,10 +149,9 @@ export function revealCell(board: Board, index: number): Board {
   if (revealedCell.revealed && revealedCell.adjacent > 0) {
     // TODO: chording(newBoard, index);
 
-    // TODO
-    // if (checkWin(newBoard)) {
-    //   newBoard.state = 'won';
-    // }
+    if (checkWin(newBoard)) {
+      newBoard.state = 'won';
+    }
 
     return newBoard;
   }
