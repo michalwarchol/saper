@@ -1,7 +1,7 @@
 import { useState } from "react";
 import plansze from "../../../assets/saper-plansze.json";
 
-import { createBoard, type Board as TBoard, type Level as TLevel } from "../../logic/board";
+import { createBoard, toggleFlag, type Board as TBoard, type Level as TLevel } from "../../logic/board";
 import Board from "../Board";
 import MenuUI from "../Menu";
 
@@ -15,6 +15,10 @@ const Game = () => {
     setRemainedMines(newLevel!.mineCount!);
   }
 
+  const onToggleFlag = (index: number) => {
+    setBoard(toggleFlag(board, index));
+  }
+
   return (
     <div>
       <MenuUI
@@ -22,7 +26,7 @@ const Game = () => {
         onSetLevel={onSetLevel}
       />
       <div>Remained mines: {remainedMines}</div>
-      <Board board={board} />
+      <Board board={board} onToggleFlag={onToggleFlag} />
     </div>
   );
 }

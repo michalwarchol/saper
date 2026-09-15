@@ -2,9 +2,19 @@ import type { Cell as TCell } from "../../logic/board";
 
 import styles from './Cell.module.scss';
 
-const Cell: React.FC<TCell> = ({ adjacent, flagged, mine, revealed}: TCell) => {
+type CellProps = TCell & {
+  onToggleFlag: () => void;
+}
+
+const Cell: React.FC<CellProps> = ({ adjacent, flagged, mine, revealed, onToggleFlag}: CellProps) => {
   return (
-    <div className={styles.cell}>
+    <div
+      className={styles.cell}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        onToggleFlag();
+      }}
+    >
       {revealed && (<div className={styles.revealed}>
         {adjacent > 0 && (<span className={`${styles.adjacent} ${styles['color-' + adjacent]}`}>{adjacent}</span>)}
         {mine && (<span className={styles.mine}>💣</span>)}
