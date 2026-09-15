@@ -68,6 +68,66 @@ export function createBoard(level: Level): Board {
   return board;
 }
 
+const isIndexFlagged = (cell: Cell): boolean => {
+  return cell && cell.flagged;
+}
+
+const chordingReveal = (board: Board, index: number) => {
+  if (!board.cells[index]) {
+    return;
+  }
+
+  if (board.cells[index].revealed) {
+    return;
+  }
+
+  if (board.cells[index].flagged) {
+    return;
+  }
+
+  if (board.cells[index].mine) {
+    board.cells[index].revealed = true;
+    board.state = 'lost';
+
+    return;
+  }
+
+  if (board.cells[index].adjacent > 0) {
+    board.cells[index].revealed = true;
+    return;
+  }
+
+  if (board.cells[index].adjacent === 0) {
+    board.cells[index].revealed = true;
+    cascadeReveal(board, index);
+  }
+}
+
+function chording(board: Board, index: number) {
+  const indexesToCheck = [
+    index - board.width,
+    index + board.width,
+  ];
+
+  // left edge column
+  if (index % board.width !== 0) {
+    indexesToCheck.push(index - board.width - 1, index - 1, index + board.width - 1);
+  }
+  
+  // right edge column
+  if (index % board.width !== board.width - 1) {
+    indexesToCheck.push(index - board.width + 1, index + 1, index + board.width + 1);
+  }
+
+  const flaggedIndexes = indexesToCheck.filter((indexToCheck) => isIndexFlagged(board.cells[indexToCheck])).length;
+  const revealedCell = board.cells[index];
+  if (revealedCell.adjacent === flaggedIndexes) {
+    indexesToCheck.forEach((indexToCheck) => {
+      chordingReveal(board, indexToCheck);
+    });
+  }
+}
+
 function cascadeReveal(board: Board, index: number): void {
   const indexesToCheck = [
     index - board.width,
@@ -147,7 +207,7 @@ export function revealCell(board: Board, index: number): Board {
   }
 
   if (revealedCell.revealed && revealedCell.adjacent > 0) {
-    // TODO: chording(newBoard, index);
+    chording(newBoard, index);
 
     if (checkWin(newBoard)) {
       newBoard.state = 'won';
