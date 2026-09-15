@@ -57,6 +57,11 @@ export function createBoard(level: Level): Board {
 export function revealCell(board: Board, index: number): Board {
   return board;
 }
+
 export function toggleFlag(board: Board, index: number): Board {
-  return board;
+  if (board.cells[index].revealed) return board;
+
+    const newBoard = structuredClone(board);
+    newBoard.cells[index].flagged = !newBoard.cells[index].flagged;
+    return newBoard;
 }
