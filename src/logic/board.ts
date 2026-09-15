@@ -59,9 +59,12 @@ export function revealCell(board: Board, index: number): Board {
 }
 
 export function toggleFlag(board: Board, index: number): Board {
+  if (board.state === 'lost' || board.state === 'won') return board;
+
   if (board.cells[index].revealed) return board;
 
     const newBoard = structuredClone(board);
     newBoard.cells[index].flagged = !newBoard.cells[index].flagged;
+    newBoard.state = 'playing';
     return newBoard;
 }
