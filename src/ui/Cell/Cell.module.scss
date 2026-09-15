@@ -1,0 +1,57 @@
+.cell {
+  height: var(--cell-size);
+  width: var(--cell-size);
+  background-color: var(--background-secondary);
+
+  .revealed {
+    background-color: var(--background-primary);
+    border-top: var(--border-size-primary) solid var(--background-secondary);
+    border-left: var(--border-size-primary) solid var(--background-secondary);
+    border-bottom: var(--border-size-primary) solid var(--background-secondary);
+    border-right: var(--border-size-primary) solid var(--background-secondary);
+  }
+
+  .unrevealed {
+    background-color: var(--background-primary);
+    border-top: var(--border-size-primary) solid var(--border-light);
+    border-left: var(--border-size-primary) solid var(--border-light);
+    border-bottom: var(--border-size-primary) solid var(--border-dark);
+    border-right: var(--border-size-primary) solid var(--border-dark);
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flag, .mine {
+    font-size: var(--font-size-adjacent);
+  }
+
+  .adjacent {
+    font-weight: bold;
+  }
+  .color-1 {
+    color: var(--color-1);
+  }
+  .color-2 {
+    color: var(--color-2);
+  }
+  .color-3 {
+    color: var(--color-3);
+  }
+  .color-4 {
+    color: var(--color-4);
+  }
+  .color-5 {
+    color: var(--color-5);
+  }
+  .color-6 {
+    color: var(--color-6);
+  }
+  .color-7 {
+    color: var(--color-7);
+  }
+  .color-8 {
+    color: var(--color-8);
+  }
+}

@@ -1,9 +1,9 @@
-import './App.css'
+import Cell from './ui/Cell';
 
 function App() {
   return (
     <div>
-      <h1>Hello World</h1>
+      <Cell adjacent={1} flagged={true} mine={false} revealed={true} />
     </div>
   )
 }
